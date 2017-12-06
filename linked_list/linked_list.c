@@ -41,7 +41,7 @@ void freeNode(TYPE_NODEPTR node){
 // * เป็น pointer ของ node pointer
 // ในการเขียน datatype ของ node เราจะไม่สนใจ node จริงๆ ว่าอยู่ไหน
 // และจะพิจารณาเพียง pointer ที่ชี้ไปยัง node ตัวแรกเท่านั้น
-void insertAtFirst(TYPE_NODEPTR *list, char item){
+void newNodeAtFirst(TYPE_NODEPTR *list, char item){
 	// สร้าง node ใหม่
 	TYPE_NODEPTR new;
 	// ให้ node ใหม่มีค่าที่เก็บใน node เท่ากับ item
@@ -52,8 +52,19 @@ void insertAtFirst(TYPE_NODEPTR *list, char item){
 	*list = new;
 }
 
+// โค้ดตามแบบในสไลด์ คือเป็นโค้ดแค่ส่วนของการลิงก์ node หนึ่งเข้าไป node ก่อนหน้านี้
+void linkToFirst(TYPE_NODEPTR *list, TYPE_NODEPTR nodeToLink){
+	// ให้ nodeToLink ชี้ไปตำแหน่งเริ่มต้นปัจจุบัน
+	nodeToLink -> Next = *list;
+	// และให้ตำแหน่งเริ่มต้นใหม่ชี้ไปตำแหน่งเริ่มต้นล่าสุดของ node
+	*list = nodeToLink;
+}
+
 // ใส่ node ใหม่ไว้ "หลัง" โหนดที่ถูกชี้โดย point
-void insertAfter(TYPE_NODEPTR point, char item){
+// โค้ดตรงนี้จะละฟังก์ชั่น `newNodeAtFirst()` ไว้ให้ไปลอง implement กันเอง
+void linkAfter(TYPE_NODEPTR point, TYPE_NODEPTR node_to_link){
+	node_to_link -> Next = point -> Next;
+	point -> Next = node_to_link;
 }
 
 int main(){
